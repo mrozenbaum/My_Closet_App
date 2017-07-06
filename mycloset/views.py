@@ -10,7 +10,7 @@ def index(request):
     args: request -- The full HTTP request object
     returns: render index view 
     '''
-    template_name = 'index.html'
+    template_name = 'mycloset/index.html'
     if request.method == 'GET':
         return render(request, template_name)
 
