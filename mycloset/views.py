@@ -37,7 +37,7 @@ def new_owner(request):
         form = OwnerForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('mycloset:index'))
+            return HttpResponseRedirect(reverse('mycloset:owner_success'))
 
     context = {'form': form}
     return render(request, 'mycloset/new_owner.html', context)        
