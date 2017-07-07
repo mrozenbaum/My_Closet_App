@@ -8,24 +8,24 @@ from django.utils import timezone
 
 
 class Owner(models.Model):
-    ''' creates Profile table in our database '''
-    user_owner = models.ForeignKey(User)
+    ''' creates Owner table in our database '''
     email = models.EmailField(max_length=254)
     owner_name = models.CharField(max_length=200)
     closet_name = models.CharField(max_length=200)
     zip_code = models.CharField(max_length=10)
     pub_date = models.DateTimeField('date_added')
     bio = models.CharField(max_length=200)
+    user_owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
     class Meta:
         verbose_name_plural = 'owners'
-        ordering = ["-owner_name"]
+        ordering = ["-closet_name"]
 
 
     def __str__(self):
         ''' returns a string of owner text to interact with interface '''
-        return self.owner_name
+        return self.closet_name
 
 
     # def owner_added_recently(self):
@@ -65,14 +65,12 @@ class Category(models.Model):
     category = models.CharField(
         max_length=25,
         choices=CATEGORY_TYPE_CHOICES,
-        default=TOPS,
+        default=TOPS, unique=True,
     )
 
-    category_views = models.IntegerField(default=0)
-    pub_date = models.DateTimeField('date_added')
-    owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
+    category_likes = models.IntegerField(default=0)
 
-
+    
     class Meta:
         verbose_name_plural = 'categorys'
 
@@ -80,7 +78,7 @@ class Category(models.Model):
 
     def __str__(self):
         ''' returns a string of category_type text to interact with '''
-        return self.category_type
+        return self.category
 
 
 
@@ -98,7 +96,7 @@ class Item(models.Model):
     purchase_place = models.CharField(max_length=250)
     date_purchased = models.DateTimeField(blank=True, null=True)
     pub_date = models.DateTimeField('date_added')
-    item_views = models.IntegerField(default=0)
+    item_likes = models.IntegerField(default=0)
 
 
     class Meta:

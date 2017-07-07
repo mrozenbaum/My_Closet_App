@@ -16,7 +16,7 @@
 </head>
 <body>
 
-      <!-- header -->
+      <!-- navbar -->
     <div class="row">
           <div class="col sm 12">
               <nav role="navigation" class="navbar navbar-default">
@@ -25,10 +25,11 @@
                         MyCloset</a>
                       <ul class="sidebar-nav nav">
                           {% if user.is_authenticated %}
-                            <li><a>Hello, {{ user.username }}.</a></li>
-                            {% else %}
-                            <li><a href="{% url 'users:register' %}"> Register </a></li>
-                            <li><a href="{% url 'users:login' %}"> Login </a></li>
+                              <li><a>Hello, {{ user.username }}.</a></li>
+                              <li><a href="{% url 'users:logout' %}"> Logout </a></li>
+                              {% else %}
+                              <li><a href="{% url 'users:register' %}"> Register </a></li>
+                              <li><a href="{% url 'users:login' %}"> Login </a></li>
                             {% endif %}
                       </ul>
                   </div>
@@ -36,7 +37,7 @@
           </div>
     </div>
 
-
+    <!-- header -->
     <div class="container">
         <div class="page-header">
             {% block header %}{% endblock header %}
@@ -45,7 +46,27 @@
             {% block content %}{% endblock content %}
         </div>
     </div> <!-- /container -->
-        
 
+    {% block footer %}
+  <footer class="page-footer">
+      <div class="container">
+          <div class="row">
+              <div class="col l6 s12">
+                  <h5 class="white-text">MyCloset</h5>
+                  <p class="grey-text text-lighten-4"> My Closet is a database management application created to make item tracking easier and fun! </p>
+              </div>
+          </div>
+      </div>
+      <div class="footer-copyright">
+          <div class="container">
+          © 2017 Miriam Rozenbaum
+              <a class="grey-text text-lighten-4 right" href="https://mrozenbaum.github.io/"> - WEBSITE </a>
+          </div>
+      </div>
+  </footer>
+
+
+
+{% endblock %}
 </body>
 </html>
