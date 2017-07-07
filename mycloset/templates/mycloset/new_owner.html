@@ -1,0 +1,22 @@
+{% extends "mycloset/base.html" %} {% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'mycloset/style.css' %}" />
+
+{% block header %}
+<nav>
+  <div class="nav-wrapper">
+    <div class="col s12">
+      <a href="#!" class="breadcrumb">Home</a>
+      <a href="#!" class="breadcrumb">New Profile</a>
+    </div>
+  </div>
+</nav>
+    <h2>Create a profile and a closet</h2>
+{% endblock header %}
+{% block content %}
+
+    <form action="{% url 'mycloset:new_owner' %}" method='post'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button name="submit" class="waves-effect waves-light btn">add profile</button>
+    </form>
+{% endblock content %}
