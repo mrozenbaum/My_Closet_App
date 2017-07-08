@@ -4,6 +4,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.template import loader
+from django.urls import reverse
+
 
 
 
@@ -27,12 +29,52 @@ def index(request):
     }
     return render(request, 'mycloset/index.html', context)
 
-    # template_name = 'mycloset/index.html'
-    # if request.method == 'GET':
-    #     return render(request, template_name)
 
-    # if request.method == "POST":
-    #     return render(request, template_name)
+
+@login_required
+def detail(request, owner_id):
+    '''
+    purpose: shows owner details view
+    author: miriam rozenbaum
+    args: request -- The full HTTP request object
+    returns: render detail view 
+    '''
+    owner = get_object_or_404(Owner, pk=owner_id)
+    return render(request, 'mycloset/detail.html', {'owner': owner})
+
+
+
+@login_required
+def results(request, owner_id):
+    owner = get_object_or_404(Owner, pk=owner_id)
+    return render(request, 'mycloset/results.html', {'owner': owner})
+
+
+
+@login_required
+def like(request, owner_id):
+    owner = get_object_or_404(Owner, pk=owner_id)
+    try:
+        selected_item = owner.item_set.get(pk=request.POST['item'])
+    except (KeyError, Item.DoesNotExist):
+        # Redisplay the question voting form.
+        return render(request, 'mycloset/detail.html', {
+            'owner': owner,
+            'error_message': "You didn't select an item.",
+        })
+    else:
+        selected_item.item_likes += 1
+        selected_item.save()
+        # Always return an HttpResponseRedirect after successfully dealing
+        # with POST data. This prevents data from being posted twice if a
+        # user hits the Back button.
+        return HttpResponseRedirect(reverse('mycloset:results', args=(owner.id,)))
+
+
+
+
+
+
 
 
 
@@ -53,6 +95,8 @@ def new_owner(request):
     return render(request, 'mycloset/new_owner.html', context) 
 
 
+
+
 @login_required
 def owner_profile(request):
     '''
@@ -67,27 +111,6 @@ def owner_profile(request):
 
     if request.method == "POST":
         return render(request, template_name)
-
-
-
-
-
-
-def detail(request, owner_id):
-    owner = get_object_or_404(Owner, pk=owner_id)
-    return render(request, 'mycloset/detail.html', {'owner': owner})
-
-def results(request, owner_id):
-    response = "You're looking at the results of owner %s."
-    return HttpResponse(response % owner_id)
-
-def like(request, owner_id):
-    return HttpResponse("You're liking on something %s." % owner_id)
-
-
-
-
-
 
 
 

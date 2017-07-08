@@ -9,10 +9,9 @@
 {% block content %}
 
 <br/><br/>
-    <div class="container fluid">
+  <div class="container fluid">
       <!-- <div class="row"> -->
-      <div class="row">
-
+        <div class="row">
            <div class="col sm 4">
               <table class="table">
                 <thead>
@@ -25,109 +24,26 @@
                 </thead>
               </table> 
             </div>
-      </div>
-          <!-- </div> -->
-
-        <!--   <div class="row">
-          <div class="col sm 12">
-              <nav role="navigation" class="navbar navbar-default">
-                  <div class="navbar-header">
-                      <ul class="sidebar-nav nav">
-                      {% if user.is_authenticated %}
-                      <p>Hello, {{ owner.closet_name }}.</p>
-                             
-                              <li><a href="#!"> Add Item </a></li>
-                              <li><a href="#!"> Categories </a></li>
-                              
-                              
-                              
-                      {% endif %}
-                      </ul>
-                  </div>
-              </nav>    
-          </div> -->
-
-
-    <div class="row">
-        <div class="col sm 4">
-          {% if latest_owner_list %}
-            <ul>
-          {% for owner in latest_owner_list %}
-              <li><a href="{% url 'mycloset:detail' owner.id %}">{{ owner.closet_name }}</a>
-              </li>
-            </ul>
-          {% endfor %}
-          {% else %}
-            <p>No Owners are signed in.</p>
-          {% endif %}
         </div>
-    </div>
-              
+          
+        <div class="row">
+            <div class="col sm 4">
+              {% if latest_owner_list %}
+                <ul>
+              {% for owner in latest_owner_list %}
+                  <li><a href="{% url 'mycloset:detail' owner.id %}">{{ owner.closet_name }}</a>
+                  </li>
+                </ul>
+              {% endfor %}
+              {% else %}
+                <p>No Owners are signed in.</p>
+              {% endif %}
+            </div>
+        </div>
+
   </div>
 {% endblock content %}
 
-
-   <!--  <h1>MYCLOSET:</h1>
-       <table class="responsive-table highlight sortable">
-  <thead>
-    <tr>
-        <th>Name</th>
-        <th>Date Added</th>
-        <th>City</th>
-        <th>State</th>
-        <th>Status</th>
-        <th>Owner</th>
-        <th>Industry</th>
-    </tr>
-  </thead>
-
-  <tbody>
-       {% if latest_owner_list %}
-    <tr>
-        {% for owner in latest_owner_list %}
-      <td><a href="{% url 'mycloset:detail' account.id %}">{{account.account_name}}</a></td>
-      <td>{{account.date_added}}</td>
-      <td>{{account.city}}</td>
-      <td>{{account.state}}</td>
-      <td>{{account.account_status}}</td>
-      <td>{{account.owner}}</td>
-      <td>{{account.industry}}</td>
-
-    </tr>
- {% endfor %}
-    {% else %}
-    <p>No accounts have been added.</p>
-    {% endif %}
-    </tbody>
-</table>
- -->
-
-
-     <!--      {% if user.is_authenticated %}
-
-                              <li><a>Hello, {{ user.username }}.</a></li>
-                              <li><a href="{% url 'users:logout' %}"> Logout</a></li>
-                              {% else %}
-                              <li><a href="{% url 'users:register' %}"> Register</a></li>
-                              <li><a href="{% url 'users:login' %}"> Login</a></li>
-                          {% endif %} -->
-
-
-          <!-- <div class="row"> -->
-              <!-- <div class="col sm 4">
-                    <div class="table">
-                        <thead>
-                          <tr>
-                              <th>View Your Closet.</th>
-                              <th><div class="">
-                                  <a href="{% url 'mycloset:owner_profile' %}" class=""> MYCLOSET </a>
-                                </div></th>
-                          </tr>
-                        </thead>
-                      </tbody>    
-                    </div>
-                </div> -->
-            <!-- </div> -->
 
           
    

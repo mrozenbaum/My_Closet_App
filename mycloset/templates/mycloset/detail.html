@@ -1,50 +1,88 @@
 {% extends "mycloset/base.html" %} {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'mycloset/style.css' %}" />
 {% block content %}
-<nav>
-<div class="nav-wrapper">
-    <div class="col s12">
-        <a href="{% url 'mycloset:index' %}" class="">Home</a>
-        <a href="{% url 'mycloset:detail' owner.id%}" class="breadcrumb">MyCloset Details</a>
-    </div>
-</div>
-</nav>
-
-<div class="row">
-    <div class="col s12 m7">
-        <div class="card">
-            <div class="card-content">
-                <h3 class="center-align">{{ owner.closet_name }}</h3>
-                <p><strong>Date Added:</strong> {{owner.pub_date|date:'M d, Y H:i'}}
-                    <p>
-                        <ul>
-                            <li><strong>Name:</strong> {{owner.owner_name}}</li>
-                            <li><strong>E-mail:</strong> {{owner.email}}</li>
-                            <li><strong>Zipcode:</strong> {{owner.zip_code}}</li>
-                            <li><strong>Bio:</strong> {{owner.bio}}</li>
-
+<div class="container-fluid">
+    <nav>
+        <div class="nav-wrapper">
+            <div class="col s12">
+                <a href="{% url 'mycloset:index' %}" class="">Home</a>
+                <a href="{% url 'mycloset:detail' owner.id%}" class="breadcrumb">MyCloset Details</a>
+                <a href="#!" class="breadcrumb">MyItem Details</a>
             </div>
-            <div class="card-action">
-              <li>
-                <a href="#!">Edit MyCloset</a>
-                </li>
-                <li>
-                <a href="#!">Delete MyCloset</a>
-                </li>
+        </div>
+    </nav>
+
+    <div class="row">
+        <div class="col s12 m7">
+            <div class="card">
+                <div class="card-content">
+                    <h3 class="center-align"> {{ owner.owner_name }} Profile :</h3>
+                    <p><strong>Date Added:</strong> {{owner.pub_date|date:'M d, Y H:i'}}</p>
+                        <ul>
+                          <li><strong>Name:</strong> {{owner.owner_name}}</li>
+                          <li><strong>E-mail:</strong> {{owner.email}}</li>
+                          <li><strong>Zipcode:</strong> {{owner.zip_code}}</li>
+                          <li><strong>Bio:</strong> {{owner.bio}}</li>
+                        </ul>
+                        <div class="card-action">
+                            <li>
+                                <a href="#!"><span class="label label-primary">Edit</span></a>
+                            </li>
+                            <li>
+                                  <a href="#!"><span class="label label-primary">Delete</span></a>
+                            </li>
+                        </div>
+                </div>
             </div>
         </div>
     </div>
+
+    <h1>{{ owner.closet_name }}</h1>
+
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+        <form action="{% url 'mycloset:like' owner.id %}" method="post">
+        {% csrf_token %}
+        {% for item in owner.item_set.all %}
+            <input type="radio" name="item" id="item{{ forloop.counter }}" value="{{ item.id }}" />
+            <label for="item{{ forloop.counter }}">{{ item.item_name }}</label><br />
+        {% endfor %}
+          <input type="submit" value="Like" />
+        </form>        
+
+    <div class="row">
+        <div class="col s12 m7">
+            <div class="card">
+                <div class="card-content">
+                    <h3 class="center-align"> {{ owner.closet_name }} :</h3>
+                    <!-- <p><strong>Item Added:</strong> {{item.pub_date|date:'M d, Y H:i'}}</p> -->
+                        <ul>
+                          {% for item in owner.item_set.all %}
+                            <li><strong>Item Name:</strong> {{item.item_name}}</li>
+                            <li><strong>Item Brand:</strong> {{item.item_brand}}</li>
+                            <li><strong>Item Color:</strong> {{item.color}}</li>
+                            <li><strong>Item Price:</strong> {{item.price}}</li>
+                            <li><strong>Purchase Place:</strong> {{item.purchase_place}}</li>
+                            <li><strong>Item Added:</strong> {{item.pub_date}}</li>
+                            <li><strong>Item Views:</strong> {{item.views}}</li>
+
+                          {% endfor %}
+                        </ul>
+                       
+                        <div class="card-action">
+                            <li>
+                                <a href="#!"><span class="label label-primary">Edit</span></a>
+                            </li>
+                            <li>
+                                  <a href="#!"><span class="label label-primary">Delete</span></a>
+                            </li>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>        
+
+
 </div>
-
-
-
-
-<h1>{{ owner.closet_name }}</h1>
-<ul>
-{% for item in owner.item_set.all %}
-    <li>{{ item.item_name }}</li>
-{% endfor %}
-</ul>
-
 
 {% endblock content %}
