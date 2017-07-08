@@ -2,15 +2,23 @@
 <link rel="stylesheet" type="text/css" href="{% static 'mycloset/style.css' %}" />
 
 {% block header %}
-    <h2>Your profile has been added successfully!</h2>
+    <h2>Welcome to your Closet!!</h2>
 {% endblock header %}
 
 {% block content %}
-<div class ="row">
-  <div class="col sm 4">
-    <h1>Profile View</h1>
-  </div>
-</div>
-
-
+<div class="row">
+          <div class="col sm 12">
+              <nav role="navigation" class="navbar navbar-default">
+                  <div class="navbar-header">
+                      <ul class="sidebar-nav nav">
+                      {% if user.is_authenticated %}
+                             
+                              <li><a href="{% url 'mycloset:new_item' owner_id %}"> Add Item </a></li>
+                              
+                      {% endif %}
+                      </ul>
+                  </div>
+              </nav>    
+          </div>
+    </div>
 {% endblock content %}

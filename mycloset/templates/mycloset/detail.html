@@ -1,1 +1,50 @@
-<h1>Detail view</h1>
+{% extends "mycloset/base.html" %} {% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'mycloset/style.css' %}" />
+{% block content %}
+<nav>
+<div class="nav-wrapper">
+    <div class="col s12">
+        <a href="{% url 'mycloset:index' %}" class="">Home</a>
+        <a href="{% url 'mycloset:detail' owner.id%}" class="breadcrumb">MyCloset Details</a>
+    </div>
+</div>
+</nav>
+
+<div class="row">
+    <div class="col s12 m7">
+        <div class="card">
+            <div class="card-content">
+                <h3 class="center-align">{{ owner.closet_name }}</h3>
+                <p><strong>Date Added:</strong> {{owner.pub_date|date:'M d, Y H:i'}}
+                    <p>
+                        <ul>
+                            <li><strong>Name:</strong> {{owner.owner_name}}</li>
+                            <li><strong>E-mail:</strong> {{owner.email}}</li>
+                            <li><strong>Zipcode:</strong> {{owner.zip_code}}</li>
+                            <li><strong>Bio:</strong> {{owner.bio}}</li>
+
+            </div>
+            <div class="card-action">
+              <li>
+                <a href="#!">Edit MyCloset</a>
+                </li>
+                <li>
+                <a href="#!">Delete MyCloset</a>
+                </li>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<h1>{{ owner.closet_name }}</h1>
+<ul>
+{% for item in owner.item_set.all %}
+    <li>{{ item.item_name }}</li>
+{% endfor %}
+</ul>
+
+
+{% endblock content %}
