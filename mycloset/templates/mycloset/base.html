@@ -1,22 +1,25 @@
 {% load staticfiles %}
-
 <!DOCTYPE html>
 <html lange="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <!-- Add additional CSS in static file -->  
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+  {% block title %}<title>MyCloset</title>{% endblock %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <!-- Add additional CSS in static file -->
+  {% load static %}
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="{% static 'mycloset/style.css' %}">
     
-    
-    <title>MyCloset</title>
 </head>
 <body>
 
-      <!-- navbar -->
+    <!-- navbar -->
     <div class="row">
           <div class="col sm 12">
               <nav role="navigation" class="navbar navbar-default">
@@ -25,12 +28,12 @@
                         MyCloset</a>
                       <ul class="sidebar-nav nav">
                           {% if user.is_authenticated %}
-                              <li><a>Hello, {{ user.username }}.</a></li>
-                              <li><a href="{% url 'users:logout' %}"> Logout </a></li>
+                              <li><a>Hello, {{ user.username }} </a></li>
+                              
                               {% else %}
-                              <li><a href="{% url 'users:register' %}"> Register </a></li>
-                              <li><a href="{% url 'users:login' %}"> Login </a></li>
-                            {% endif %}
+                              <li><a href="{% url 'users:register' %}"> Register</a></li>
+                              <li><a href="{% url 'users:login' %}"> Login</a></li>
+                          {% endif %}
                       </ul>
                   </div>
               </nav>    
@@ -47,13 +50,15 @@
         </div>
     </div> <!-- /container -->
 
-    {% block footer %}
+  <!-- footer -->
+  {% block footer %}
   <footer class="page-footer">
       <div class="container">
           <div class="row">
               <div class="col l6 s12">
                   <h5 class="white-text">MyCloset</h5>
-                  <p class="grey-text text-lighten-4"> My Closet is a database management application created to make item tracking easier and fun! </p>
+                  <p class="grey-text text-lighten-4">A fun and easy way to manage your closet's inventory. </p>
+                  <p class="grey-text text-lighten-4"> Created with Python and Django. MyCloset is a database management application created to make item tracking useful for the modern fashionista. </p>
               </div>
           </div>
       </div>
@@ -64,8 +69,6 @@
           </div>
       </div>
   </footer>
-
-
 
 {% endblock %}
 </body>

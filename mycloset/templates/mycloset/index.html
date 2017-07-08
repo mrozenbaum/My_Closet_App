@@ -1,6 +1,7 @@
 {% extends "mycloset/base.html" %} {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'mycloset/style.css' %}" />
 
+
 {% block header %}
 
 {% endblock header %} 
@@ -8,36 +9,42 @@
 {% block content %}
 
 <br/><br/>
-    <div class="container fluid">
-      <div class="row">
-          <div class="col sm 4">
-              <div class="">
-                  <div class="">
-                      <h1>Register To MyCloset</h1>
-                      <h5>To start adding things to your closet!</h5>
-                  </div>
-                  <div class="">
-                      <a href="{% url 'users:register' %}" class=""> REGISTER </a>
-                  </div>
-              </div>
-          </div>
+  <div class="container fluid">
+      <!-- <div class="row"> -->
+        <div class="row">
+           <div class="col sm 4">
+              <table class="table">
+                <thead>
+                    <tr>
+                        <th>Register To start using MyCloset</th>
+                        <th><div class="">
+                            <a href="{% url 'users:register' %}" class=""> REGISTER </a>
+                        </div></th>
+                    </tr>
+                </thead>
+              </table> 
+            </div>
+        </div>
+          
+        <div class="row">
+            <div class="col sm 4">
+              {% if latest_owner_list %}
+                <ul>
+              {% for owner in latest_owner_list %}
+                  <li><a href="{% url 'mycloset:detail' owner.id %}">{{ owner.closet_name }}</a>
+                  </li>
+                </ul>
+              {% endfor %}
+              {% else %}
+                <p>No Owners are signed in.</p>
+              {% endif %}
+            </div>
+        </div>
 
-          <div class="col sm 4">
-              <div class="">
-                  <div class="">
-                      <h1>MyCloset</h1>
-                      <h5>View your closet.</h5> 
-                  </div>
-                  <div class="">
-                      <a href="{% url 'mycloset:owner_profile' %}" class=""> MY CLOSET </a>
-                  </div>
-              </div>
-          </div>
-      </div>
-    </div> 
-
-    <div class="row">
-
-    </div> 
-
+  </div>
 {% endblock content %}
+
+
+          
+   
+

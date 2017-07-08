@@ -1,0 +1,35 @@
+<!-- {% --> <!-- extends "mycloset/base.html" %} {% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'mycloset/style.css' %}" />
+
+{% block content %}
+<h1>{{ owner.closet_name }}</h1>
+<table class="bordered">
+        <thead>
+          <tr>
+              <th>Name</th>
+              <th>Brand</th>
+              <th>Color</th>
+              <th>Price</th>
+              <th>Purchase Place</th>
+              <th>Purchase Price</th>
+          </tr>
+        </thead>
+        <tbody>
+    {% for item in owner.item_set.all %}
+    <tr>
+    <td>{{ item.item_name }}<td>
+    <td>{{ item.item_brand }}</td>
+    <td>{{ item.item_color }}</td>
+    <td>{{ item.item_price }}</td>
+    <td>{{ item.purchase_place }}</td>
+    <td>{{ item.purchase_price }}</td>
+            </tr>
+    {% endfor %}
+
+</tbody>
+</table>
+<br/>
+<button class="waves-effect waves-light btn"><a href="#!">Add a new item</a></button>
+<h4><a href="!#">profile</a></h4>
+
+{% endblock content %} -->

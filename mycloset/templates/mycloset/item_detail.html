@@ -1,0 +1,51 @@
+<!-- {% extends "mycloset/base.html" %} {% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'mycloset/style.css' %}" />
+{% block content %}
+<div class="container-fluid">
+    <nav>
+        <div class="nav-wrapper">
+            <div class="col s12">
+                <a href="{% url 'mycloset:index' %}" class="">Home</a>
+                <a href="{% url 'mycloset:detail' owner.id%}" class="breadcrumb">My Closet</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="row">
+        <div class="col s12 m7">
+            <div class="card">
+                <div class="card-content">
+                    <h3 class="center-align">{{ owner.closet_name }}</h3>
+                    <p><strong>Item Added:</strong> {{item.pub_date|date:'M d, Y H:i'}}</p>
+                        <ul>
+                          {% for item in owner.item_set.all %}
+                            <li><strong>Item Name:</strong> {{item.item_name}}</li>
+                            <li><strong>Item Name:</strong> {{item.item_name}}</li>
+                            <li><strong>Item Brand:</strong> {{item.item_brand}}</li>
+                            <li><strong>Item Color:</strong> {{item.color}}</li>
+                            <li><strong>Item Price:</strong> {{item.price}}</li>
+                            <li><strong>Purchase Place:</strong> {{item.purchase_place}}</li>
+                            <li><strong>Item Added:</strong> {{item.pub_date}}</li>
+                            <li><strong>Item Views:</strong> {{item.views}}</li>
+
+                          {% endfor %}
+                        </ul>
+                       
+                        <div class="card-action">
+                            <li>
+                                <a href="#!">Edit MyItems</a>
+                            </li>
+                            <li>
+                                  <a href="#!">Delete MyItems</a>
+                            </li>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>        
+
+    
+
+</div>
+
+{% endblock content %}         -->
