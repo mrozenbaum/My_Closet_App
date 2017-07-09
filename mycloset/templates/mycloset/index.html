@@ -9,39 +9,68 @@
 {% block content %}
 
 <br/><br/>
-  <div class="container fluid">
+    <div class="container fluid">
       <!-- <div class="row"> -->
         <div class="row">
            <div class="col sm 4">
-              <table class="table">
-                <thead>
-                    <tr>
-                        <th>Register To start using MyCloset</th>
-                        <th><div class="">
-                            <a href="{% url 'users:register' %}" class=""> REGISTER </a>
-                        </div></th>
-                    </tr>
-                </thead>
-              </table> 
-            </div>
-        </div>
+              <div class="card">
+                  <div class="card-image-two">
+                    <img src="static/mycloset/images/mycloset_2.gif" height="250" class=".card-image-two">
+                  </div>
+              
+                  <div class="card-content">
+                    <!-- <h2>Start building your closet</h2> -->
+                    <div class="card-action">
+                      <a href="{% url 'users:register' %}" class="register-link"> REGISTER TO MYCLOSET </a>
+                    </div>
+                 </div>
+              </div> 
+          </div>
           
-        <div class="row">
-            <div class="col sm 4">
-              {% if latest_owner_list %}
-                <ul>
-              {% for owner in latest_owner_list %}
-                  <li><a href="{% url 'mycloset:detail' owner.id %}">{{ owner.closet_name }}</a>
-                  </li>
-                </ul>
-              {% endfor %}
-              {% else %}
-                <p>No Owners are signed in.</p>
-              {% endif %}
-            </div>
-        </div>
+        <div class="col sm 4">
+          <div class="card">
+                <div class="card-image-one">
+                  <img src="static/mycloset/images/mycloset_1.gif" height="250" class=".card-image-one">
+                </div>
 
-  </div>
+                  <div class="card-content">
+                    <!-- <p>Add A New Profile</p> -->
+                    <div class="card-action">
+                      <a href="#!" class="add-profile-link">CREATE A CLOSET </a>
+                    </div> 
+                 </div>
+            </div>
+        </div>   
+        
+        <div class="col sm 4">
+            <div class="card">
+                <!-- <div class="card-image-one"> -->
+                  <!-- <img src="images/mycloset_1.gif" height="250" class=""> -->
+                <!-- </div> -->
+
+                <div class="card-content">
+                  {% if latest_owner_list %}
+                  {% for owner in latest_owner_list %}
+
+                    <li><a href="{% url 'mycloset:detail' owner.id %}" class="owner-closet-link">VIEW {{ owner.owner_name }} CLOSET</a>
+                    
+                  {% endfor %}
+                  {% else %}
+
+                    <p>NO OWNERS WITH CLOSETS ARE SIGNED IN.</p>
+                    <p> HURRY UP AND REGISTER.</p>
+
+                  {% endif %}
+                </div>
+                <!-- <div class="card-action">
+                    <a href="#!" class=""> Add Profile </a>
+                </div>  -->
+            </div>
+        </div>    
+ 
+                
+      </div>
+    </div>
 {% endblock content %}
 
 
