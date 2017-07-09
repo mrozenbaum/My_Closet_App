@@ -28,17 +28,15 @@ class Owner(models.Model):
         return self.closet_name
 
     def was_published_recently(self):
-        return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
-    # def owner_added_recently(self):
         '''
         returns boolean if an Owner (profile) was added by a user within a
         designated timeframe
         '''
-        # now = timezone.now()
-        # return now - datetime.timedelta(days=1) <= self.date_added <= now
-        # was_added_recently.admin_order_field = 'date_added'
-        # was_added_recently.boolean = True
-        # was_added_recently.short_description = 'Added recently?'    
+        now = timezone.now()
+        return now - datetime.timedelta(days=1) <= self.pub_date <= now
+        was_published_recently.admin_order_field = 'pub_date'
+        was_published_recently.boolean = True
+        was_published_recently.short_description = 'Added recently?'    
 
 
 
