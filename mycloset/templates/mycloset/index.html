@@ -14,61 +14,54 @@
         <div class="row">
            <div class="col sm 4">
               <div class="card">
+                <div class="card-content">
+                  <div class="card-action">
+                    <a href="{% url 'users:register' %}" class="register-link">REGISTER MYCLOSET</a>
+                  </div>
                   <div class="card-image-two">
-                    <img src="static/mycloset/images/mycloset_2.gif" height="250" class=".card-image-two">
+                    <img src="mycloset/static/mycloset/images/mycloset_2.gif" height="200" width="" class="card-image-two">
                   </div>
               
-                  <div class="card-content">
-                    <!-- <h2>Start building your closet</h2> -->
-                    <div class="card-action">
-                      <a href="{% url 'users:register' %}" class="register-link"> REGISTER TO MYCLOSET </a>
-                    </div>
-                 </div>
+                </div>
               </div> 
           </div>
           
         <div class="col sm 4">
           <div class="card">
+              <div class="card-content">
+                  <div class="card-action">
+                    <a href="#!" class="add-profile-link">CREATE A CLOSET </a>
+                  </div> 
                 <div class="card-image-one">
-                  <img src="static/mycloset/images/mycloset_1.gif" height="250" class=".card-image-one">
+                  <img src="mycloset/static/mycloset/images/mycloset_1.gif" height="200" width="" class="card-image-one">
                 </div>
-
-                  <div class="card-content">
-                    <!-- <p>Add A New Profile</p> -->
-                    <div class="card-action">
-                      <a href="#!" class="add-profile-link">CREATE A CLOSET </a>
-                    </div> 
-                 </div>
+              </div>
             </div>
         </div>   
         
         <div class="col sm 4">
             <div class="card">
-                <!-- <div class="card-image-one"> -->
-                  <!-- <img src="images/mycloset_1.gif" height="250" class=""> -->
-                <!-- </div> -->
-
-                <div class="card-content">
+              <div class="card-content">
                   {% if latest_owner_list %}
                   {% for owner in latest_owner_list %}
-
-                    <li><a href="{% url 'mycloset:detail' owner.id %}" class="owner-closet-link">VIEW {{ owner.owner_name }} CLOSET</a>
-                    
+                <div class="card-action"> 
+                  <a href="{% url 'mycloset:detail' owner.id %}" class="owner-closet-link"> {{ owner.owner_name }} CLOSET</a>  
                   {% endfor %}
-                  {% else %}
+                </div> 
 
+                  {% else %}
                     <p>NO OWNERS WITH CLOSETS ARE SIGNED IN.</p>
                     <p> HURRY UP AND REGISTER.</p>
 
                   {% endif %}
+                <div class="card-image-three">
+                  <img src="mycloset/static/mycloset/images/mycloset_3.gif" height="200" width="" class="card-image-three">
                 </div>
-                <!-- <div class="card-action">
-                    <a href="#!" class=""> Add Profile </a>
-                </div>  -->
+                </div>
             </div>
         </div>    
  
-                
+              
       </div>
     </div>
 {% endblock content %}
