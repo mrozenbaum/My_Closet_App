@@ -10,8 +10,9 @@ from django.utils import timezone
 
 class Owner(models.Model):
     ''' creates Owner table in our database '''
-    email = models.EmailField(max_length=254)
+
     owner_name = models.CharField(max_length=200)
+    email = models.EmailField(max_length=254)
     closet_name = models.CharField(max_length=200)
     zip_code = models.CharField(max_length=10)
     pub_date = models.DateTimeField('date_added')
@@ -21,12 +22,12 @@ class Owner(models.Model):
 
     class Meta:
         verbose_name_plural = 'owners'
-        ordering = ["-closet_name"]
+        ordering = ["-owner_name"]
 
 
     def __str__(self):
         ''' returns a string of owner text to interact with interface '''
-        return self.closet_name
+        return self.owner_name
 
     def was_published_recently(self):
         '''
@@ -37,7 +38,12 @@ class Owner(models.Model):
         return now - datetime.timedelta(days=1) <= self.pub_date <= now
         was_published_recently.admin_order_field = 'pub_date'
         was_published_recently.boolean = True
-        was_published_recently.short_description = 'Added recently?'    
+        was_published_recently.short_description = 'Added recently?'
+
+
+    def iteming_date(self):
+        self.iteming_date = timezone.now()
+        self.save()        
 
 
 

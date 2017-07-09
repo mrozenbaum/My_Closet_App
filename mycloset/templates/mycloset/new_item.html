@@ -6,7 +6,7 @@
     <p>Add a new Item:</p>
     <form action="{% url 'mycloset:new_item' owner.id %}" method='post'>
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ item_form.as_p }}
         <button name="submit" class="waves-effect waves-light btn">Add Item</button>
     </form>
 {% endblock content %}

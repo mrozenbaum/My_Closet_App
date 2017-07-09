@@ -6,7 +6,7 @@
 
     <form action="{% url 'mycloset:edit_owner' owner.id %}" method='post'>
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ owner_form.as_p }}
         <button name="submit" class="waves-effect waves-light btn"> Save Changes </button>
     </form>
 
