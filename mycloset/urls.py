@@ -15,5 +15,9 @@ urlpatterns = [
     url(r'^(?P<owner_id>[0-9]+)/like/$', views.like, name='like'),
     # ex: /mycloset/5/results/
     url(r'^(?P<pk>[0-9]+)/results/$', views.ResultsView.as_view(), name='results'),
+    # editing owner profile view
+    url(r'^edit_owner/(?P<owner_id>\d+)/$', views.edit_owner, name='edit_owner'),
+    # page for adding a new item
+    url(r'^new_item/(?P<owner_id>\d+)/$', views.new_item, name='new_item'),
 ]
     

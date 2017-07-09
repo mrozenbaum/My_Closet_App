@@ -25,12 +25,12 @@
                 </div>
               </div> 
           </div>
-          
+        <!-- shows all owners that have been created if admin -->   
         <div class="col sm 4">
           <div class="card">
               <div class="card-content">
                   <div class="card-action">
-                    <a href="#!" class="add-profile-link">CREATE A CLOSET </a>
+                    <a href="{% url 'mycloset:new_owner' %}" class="add-profile-link">CREATE A CLOSET </a>
                   </div> 
                 <div class="card-image-one">
                   <img src="mycloset/static/mycloset/images/mycloset_1.gif" height="200" width="" class="card-image-one">

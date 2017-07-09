@@ -7,6 +7,7 @@ from django.utils import timezone
 # Create your models here.
 
 
+
 class Owner(models.Model):
     ''' creates Owner table in our database '''
     email = models.EmailField(max_length=254)
@@ -76,7 +77,7 @@ class Category(models.Model):
 
 
     def __str__(self):
-        ''' returns a string of category_type text to interact with '''
+        ''' returns a string of category text to interact with '''
         return self.category
 
 
@@ -106,6 +107,10 @@ class Item(models.Model):
         return self.item_name
 
     def was_published_recently(self):
+        '''
+        returns boolean if an Item was added by an Owner within a
+        designated timeframe
+        '''
         now = timezone.now()
         return now - datetime.timedelta(days=1) <= self.pub_date <= now
         was_published_recently.admin_order_field = 'pub_date'

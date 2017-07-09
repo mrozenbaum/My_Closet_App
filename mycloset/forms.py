@@ -10,9 +10,9 @@ class OwnerForm(forms.ModelForm):
             'owner_name': 'First Name',
             'email': 'Email',
             'closet_name': 'Closet Name',
-            'pub_date': 'Date Added',
             'zip_code': 'Zipcode',
-            'bio': 'Bio'
+            'bio': 'Bio',
+            'pub_date': 'Date Added'
         }
 
 
@@ -25,9 +25,8 @@ class ItemForm(forms.ModelForm):
             'item_color',
             'item_price',
             'purchase_place',
-            'date_purchased',
-            'pub_date',
-            'category'
+            'category',
+            'pub_date'
         ]
 
         labels = {
@@ -36,6 +35,6 @@ class ItemForm(forms.ModelForm):
             'item_color': 'Item Color',
             'item_price': 'Item Price',
             'purchase_place': 'Purchase Place',
-            'pub_date': 'Date Added',
-            'category': 'Category'
+            'category': 'Category',
+            'pub_date': 'Date Added'
         }        
