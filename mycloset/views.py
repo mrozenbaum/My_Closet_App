@@ -29,7 +29,7 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         """Return the last five published owners."""
-        return Owner.objects.order_by('-pub_date')[:5]
+        return Owner.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
 
 
 
