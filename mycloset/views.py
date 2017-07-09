@@ -51,11 +51,124 @@ class DetailView(generic.DetailView):
 
 
 
-
-
 class ResultsView(generic.DetailView):
     model = Owner
     template_name = 'mycloset/results.html'
+
+
+
+
+@login_required
+def ItemViewView(request, owner_id):
+    owner = get_object_or_404(Owner, pk=owner_id)
+    try:
+        selected_item = owner.item_set.get(pk=request.POST['item'])
+    except (KeyError, Item.DoesNotExist):
+        # redisplay the Item form
+        return render(request, 'mycloset/detail.html', {
+            'owner': owner,
+            'error_message': "You didnt select an Item.",
+        })
+    else:
+        selected_item.item_likes += 1
+        selected_item.save()
+        # Always return an HttpResponseRedirect after successfully dealing
+        # with POST data. This prevents data from being posted twice if a user
+        # hits the back button
+    return HttpResponseRedirect(reverse('mycloset:results', args=(owner.id,)))
+
+
+
+def single_item(request, item):
+    ''' view single item '''
+    all_items = Item.objects.all()
+    selected_item = all_item(id=pk)
+    context = {'selected_item': selected_item}
+    return render(request, 'mycloset/results.html', context)    
+
+
+
+
+@login_required
+def new_owner(request):
+    ''' add a new owner profile '''
+    if request.method != 'POST':
+        # no data submitted, create a blank profile form
+        owner_form = OwnerForm()
+    else:
+        # POST data submitted; process data
+        owner_form = OwnerForm(request.POST)
+        if owner_form.is_valid():
+            owner_form.save()
+            return HttpResponseRedirect(reverse('mycloset:index'))
+
+    context = {'owner_form': owner_form}
+    return render(request, 'mycloset/new_owner.html', context) 
+
+
+
+
+@login_required
+def new_item(request, owner_id):
+    ''' adds a new item for a selected owner '''
+    owner = Owner.objects.get(id=owner_id)
+
+    if request.method != 'POST':
+        # No data submitted; create a blank form.
+        item_form = ItemForm()
+
+    else:
+        # POST data submitted; process data.
+        item_form = ItemForm(data=request.POST)
+        if item_form.is_valid():
+            new_item = item_form.save(commit=False)
+            new_item.owner = owner
+            new_item.save()
+            return HttpResponseRedirect(reverse('mycloset:results', args=[owner_id]))
+
+    context = {'owner': owner, 'item_form': item_form}
+    return render(request, 'mycloset/new_item.html', context)
+
+
+
+
+@login_required
+def edit_owner(request, owner_id):
+    ''' edit an existing owner profile '''
+    owner = Owner.objects.get(id=owner_id)
+
+    if request.method != 'POST':
+        # Initial request; pre-fill form with the current Owner info
+        owner_form = OwnerForm(instance=owner)
+    else:
+        # POST data submitted; process data.
+        owner_form = OwnerForm(instance=owner, data=request.POST)
+        if owner_form.is_valid():
+            owner_form.save()
+            return HttpResponseRedirect(reverse('mycloset:detail', args=[owner.id]))
+    context = {'owner': owner, 'owner_form': owner_form}
+    return render(request, 'mycloset/edit_owner.html', context)
+
+
+
+
+@login_required
+def edit_item(request, item_id):
+    ''' edit an existing item '''
+    item = Item.objects.get(id=item_id)
+    owner = item.owner
+
+    if request.method != 'POST':
+        # Initial request; pre-fill form with the current Item info
+        item_form = ItemForm(instance=item)
+    else:
+        # POST data submitted; process data.
+        item_form = ItemForm(instance=item, data=request.POST)
+        if item_form.is_valid():
+            item_form.save()
+            return HttpResponseRedirect(reverse('mycloset:detail', args=[owner.id]))
+    context = {'item': item, 'owner': owner, 'item_form': item_form}
+    return render(request, 'mycloset/edit_item.html', context)
 
 
 
@@ -83,29 +196,6 @@ def like(request, owner_id):
 
 
 
-
-
-@login_required
-def new_owner(request):
-    ''' add a new owner profile '''
-    if request.method != 'POST':
-        # no data submitted, create a blank profile form
-        form = OwnerForm()
-    else:
-        # POST data submitted; process data
-        form = OwnerForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('mycloset:owner_success'))
-
-    context = {'form': form}
-    return render(request, 'mycloset/new_owner.html', context) 
-
-
-
-
-
-
 @login_required
 def owner_profile(request):
     '''
@@ -125,48 +215,12 @@ def owner_profile(request):
 
 
 
-@login_required
-def edit_owner(request, owner_id):
-    ''' edit an existing owner profile '''
-    owner = Owner.objects.get(id=owner_id)
-
-    if request.method != 'POST':
-        # Initial request; pre-fill form with the current owner info
-        form = OwnerForm(instance=owner)
-    else:
-        # POST data submitted; process data.
-        form = OwnerForm(instance=owner, data=request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('mycloset:detail', args=[owner.id]))
-    context = {'owner': owner, 'form': form}
-    return render(request, 'mycloset/edit_owner.html', context)
 
 
 
 
 
 
-@login_required
-def new_item(request, owner_id):
-    ''' adds a new item for a selected owner '''
-    owner = Owner.objects.get(id=owner_id)
-
-    if request.method != 'POST':
-        # No data submitted; create a blank form.
-        form = ItemForm()
-
-    else:
-        # POST data submitted; process data.
-        form = ItemForm(data=request.POST)
-        if form.is_valid():
-            new_item = form.save(commit=False)
-            new_item.owner = owner
-            new_item.save()
-            return HttpResponseRedirect(reverse('mycloset:results', args=[owner_id]))
-
-    context = {'owner': owner, 'form': form}
-    return render(request, 'mycloset/new_item.html', context)
 
 
 
