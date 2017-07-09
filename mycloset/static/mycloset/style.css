@@ -9,3 +9,49 @@ li {
 h1 {
   color: hotpink;
 }
+
+.card-image-one{
+  background: white url("images/mycloset_1.gif") no-repeat center;
+}
+
+.card-image-two{
+  background: white url("images/mycloset_2.gif") no-repeat center;
+}
+
+.card-content{
+  text-align: center;
+}
+
+.my-closet-logo{
+  background: white url("images/MyCloset_Logo.png") no-repeat center;
+}
+
+footer {
+  text-align: center;
+}
+
+.container-fluid{
+  text-align:center;
+}
+
+.add-profile-link{
+  list-style-type: none;
+  color: black;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.register-link{
+  list-style-type: none;
+  color: black;
+  font-weight: bold;
+  font-size: 20px;
+
+}
+
+.owner-closet-link{
+  list-style-type: none;
+  color: black;
+  font-weight: bold;
+  font-size: 25px;
+}

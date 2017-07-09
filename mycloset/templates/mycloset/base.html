@@ -24,8 +24,7 @@
           <div class="col sm 12">
               <nav role="navigation" class="navbar navbar-default">
                   <div class="navbar-header">
-                    <a class="navbar-brand" href="{% url 'mycloset:index' %}" class="brand-logo center">
-                        MyCloset</a>
+                    
                       <ul class="sidebar-nav nav">
                           {% if user.is_authenticated %}
                               <li><a>Hello, {{ user.username }} </a></li>
