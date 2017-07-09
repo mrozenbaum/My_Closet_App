@@ -29,7 +29,7 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         """Return the last five published owners."""
-        return Owner.objects.order_by('-pub_date')[:1]
+        return Owner.objects.order_by('-pub_date')[:5]
 
 
 
@@ -50,9 +50,14 @@ class DetailView(generic.DetailView):
         return Owner.objects.filter(pub_date__lte=timezone.now())
 
 
+
+
+
 class ResultsView(generic.DetailView):
     model = Owner
     template_name = 'mycloset/results.html'
+
+
 
 
 
@@ -77,6 +82,9 @@ def like(request, owner_id):
 
 
 
+
+
+
 @login_required
 def new_owner(request):
     ''' add a new owner profile '''
@@ -96,6 +104,8 @@ def new_owner(request):
 
 
 
+
+
 @login_required
 def owner_profile(request):
     '''
@@ -110,4 +120,53 @@ def owner_profile(request):
 
     if request.method == "POST":
         return render(request, template_name)
+
+
+
+
+
+@login_required
+def edit_owner(request, owner_id):
+    ''' edit an existing owner profile '''
+    owner = Owner.objects.get(id=owner_id)
+
+    if request.method != 'POST':
+        # Initial request; pre-fill form with the current owner info
+        form = OwnerForm(instance=owner)
+    else:
+        # POST data submitted; process data.
+        form = OwnerForm(instance=owner, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('mycloset:detail', args=[owner.id]))
+    context = {'owner': owner, 'form': form}
+    return render(request, 'mycloset/edit_owner.html', context)
+
+
+
+
+
+
+@login_required
+def new_item(request, owner_id):
+    ''' adds a new item for a selected owner '''
+    owner = Owner.objects.get(id=owner_id)
+
+    if request.method != 'POST':
+        # No data submitted; create a blank form.
+        form = ItemForm()
+
+    else:
+        # POST data submitted; process data.
+        form = ItemForm(data=request.POST)
+        if form.is_valid():
+            new_item = form.save(commit=False)
+            new_item.owner = owner
+            new_item.save()
+            return HttpResponseRedirect(reverse('mycloset:results', args=[owner_id]))
+
+    context = {'owner': owner, 'form': form}
+    return render(request, 'mycloset/new_item.html', context)
+
+
 

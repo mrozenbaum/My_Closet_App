@@ -1,0 +1,13 @@
+{% extends "mycloset/base.html" %} {% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'mycloset/style.css' %}" />
+{% block content %}
+
+    <p>Edit Owner:</p>
+
+    <form action="{% url 'mycloset:edit_owner' owner.id %}" method='post'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button name="submit" class="waves-effect waves-light btn"> Save Changes </button>
+    </form>
+
+{% endblock content %}
