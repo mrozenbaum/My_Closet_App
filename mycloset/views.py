@@ -196,21 +196,6 @@ def like(request, owner_id):
 
 
 
-@login_required
-def owner_profile(request):
-    '''
-    purpose: shows owner_profile view, with owner profile details
-    author: miriam rozenbaum
-    args: request -- The full HTTP request object
-    returns: render owner_profile view 
-    '''
-    template_name = 'mycloset/owner_profile.html'
-    if request.method == 'GET':
-        return render(request, template_name)
-
-    if request.method == "POST":
-        return render(request, template_name)
-
 
 
 
