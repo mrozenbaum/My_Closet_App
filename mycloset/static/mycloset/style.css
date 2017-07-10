@@ -97,3 +97,16 @@ footer {
   color: white;
   text-decoration: none;
 }
+
+
+.my-closet-header{
+  background: white url("images/mycloset_header.png") no-repeat center;
+  height: auto;
+  max-width: 100%;
+}
+
+/* links in base.html for login,logout,username */
+.base-nav-links{
+  list-style-type: none;
+  color: white;
+}

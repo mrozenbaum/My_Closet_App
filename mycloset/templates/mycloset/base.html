@@ -21,35 +21,38 @@
 <body>
 
     <!-- navbar -->
-    <div class="row">
-          <div class="col sm 12">
+        <div class="row">
+            <div class="col sm 12">
 
-              <nav class="nav-wrapper">
+                <nav class="nav-wrapper navbar navbar-inverse navbar-static-top">
                   <a class="navbar-brand" href="{% url 'mycloset:index' %}" class="brand-logo center">MyCloset</a>
                     <ul class="right hide-on-med-and-down">
                         {% if user.is_authenticated %}
                         <li><a>Hello, {{ user.username }}.</a></li>
-                        <li><a href="{% url 'users:logout' %}"> Log Out </a></li>
+                        <li><a href="{% url 'users:logout' %}" class=""> Log Out </a></li>
                         {% else %}
-                        <li><a href="{% url 'users:register' %}"> Register </a></li>
-                        <li><a href="{% url 'users:login' %}"> Log In </a></li>
+                        <li><a href="{% url 'users:register' %}" class=""> Register </a></li>
+                        <li><a href="{% url 'users:login' %}" class=""> Log In </a></li>
                         {% endif %}
                     </ul>
-                </div>
-              </nav>
-
-          </div>
-    </div>
+                </nav>
+            </div>
+        </div>
+    
 
     <!-- header -->
+
     <div class="container">
+
         <div class="page-header">
             {% block header %}{% endblock header %}
         </div>
         <div>
             {% block content %}{% endblock content %}
         </div>
+
     </div> <!-- /container -->
+
 
   <!-- footer -->
   {% block footer %}
