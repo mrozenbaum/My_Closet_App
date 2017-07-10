@@ -23,20 +23,21 @@
     <!-- navbar -->
     <div class="row">
           <div class="col sm 12">
-              <nav role="navigation" class="navbar navbar-default">
-                  <div class="navbar-header">
-                    
-                      <ul class="sidebar-nav nav">
-                          {% if user.is_authenticated %}
-                              <li><a>Hello, {{ user.username }} </a></li>
-                              
-                              {% else %}
-                              <li><a href="{% url 'users:register' %}"> Register</a></li>
-                              <li><a href="{% url 'users:login' %}"> Login</a></li>
-                          {% endif %}
-                      </ul>
-                  </div>
-              </nav>    
+
+              <nav class="nav-wrapper">
+                  <a class="navbar-brand" href="{% url 'mycloset:index' %}" class="brand-logo center">MyCloset</a>
+                    <ul class="right hide-on-med-and-down">
+                        {% if user.is_authenticated %}
+                        <li><a>Hello, {{ user.username }}.</a></li>
+                        <li><a href="{% url 'users:logout' %}"> Log Out </a></li>
+                        {% else %}
+                        <li><a href="{% url 'users:register' %}"> Register </a></li>
+                        <li><a href="{% url 'users:login' %}"> Log In </a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+              </nav>
+
           </div>
     </div>
 

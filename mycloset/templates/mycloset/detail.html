@@ -5,7 +5,7 @@
     <nav>
         <div class="nav-wrapper">
             <div class="col s12">
-                <a href="{% url 'mycloset:index' %}" class="">Home</a>
+                <a href="{% url 'mycloset:index' %}" class="breadcrumb">Home</a>
                 <a href="{% url 'mycloset:detail' owner.id%}" class="breadcrumb">MyCloset Details</a>
             </div>
         </div>
@@ -16,15 +16,19 @@
     <div class="row">
         <div class="col s12 m7">
             <div class="card">
-                <div class="card-content">
-                    <h3 class="center-align"> {{ owner.owner_name }} </h3>
-                    <p><strong>Date Added:</strong> {{owner.pub_date|date:'M d, Y H:i'}}</p>
-                        <ul>
-                          <li><strong>E-mail:</strong> {{owner.email}}</li>
-                          <li><strong>Zipcode:</strong> {{owner.zip_code}}</li>
-                          <li><strong>Name:</strong> {{owner.closet_name}}</li>
-                          <li><strong>Bio:</strong> {{owner.bio}}</li>
-                        </ul>
+              <div class="card-image">
+                <img src="https://avatars.io/platform/userId">
+              </div>
+              <div class="card-content">
+                <h3 class="center-align"> {{ owner.owner_name }}</h3>
+                  <p><strong>Date Added:</strong> {{owner.pub_date|date:'M d, Y H:i'}}</p>
+
+                    <ul>
+                      <strong><li>E-mail:</strong> {{owner.email}}</li>
+                      <strong><li>Zipcode:</strong> {{owner.zip_code}}</li>
+                      <strong><li>Name:</strong> {{owner.closet_name}}</li>
+                      <strong><li>Bio:</strong> {{owner.bio}}</li>
+                    </ul>
                         
                         <div class="card-action">
                             <a href="{% url 'mycloset:edit_owner' owner.id %}">Edit Profile</a>
