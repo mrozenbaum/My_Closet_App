@@ -37,7 +37,7 @@
     </table>
 <br/>
 
+<button class="waves-effect waves-light btn"><a href="{%  url 'mycloset:detail' owner.id %}">Back to closet details</a></button>
 <button class="waves-effect waves-light btn"><a href="{% url 'mycloset:new_item' owner.id%}">Add a new item</a></button>
-<h4><a href="{%  url 'mycloset:detail' owner.id %}"><span class="label label-primary">View another item?</span></a></h4>
 
 {% endblock content %}

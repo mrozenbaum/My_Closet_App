@@ -23,13 +23,15 @@ footer {
   background: white url("images/mycloset_3.gif") no-repeat center;
 }
 
+.my-closet-logo{
+  background: white url("images/mycloset_header.png") no-repeat center;
+  width:800px;
+  height: 450px;
+}
+
 .card-content{
   text-align: center;
 }
-
-/*.my-closet-logo{*/
-  /*background: white url("images/MyCloset_Logo.png") no-repeat center;*/
-/*}*/
 
 
 .container-fluid{
